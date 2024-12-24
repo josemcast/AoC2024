@@ -35,4 +35,5 @@ fn main() {
     }
 
     solve(&args[1]).unwrap();
+    println!("To Solve part2 run the program with the filtered input.");
 }

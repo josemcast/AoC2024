@@ -1,6 +1,8 @@
-use std::collections::HashMap;
 use std::env;
 use std::fs;
+
+mod part1;
+mod part2;
 
 fn parse_input(file_path: &String) -> (Vec<u32>, Vec<u32>) {
     let contents = fs::read_to_string(&file_path).expect("Error");
@@ -35,27 +37,6 @@ fn main() {
     col1.sort();
     col2.sort();
 
-    let mut dist = 0;
-
-    let mut list2 = HashMap::new();
-
-    //Part 01
-    for i in 0..col1.len() {
-        dist += col1[i].abs_diff(col2[i]);
-        list2.entry(col2[i]).and_modify(|x| *x += 1).or_insert(1);
-    }
-
-    println!("dist: {}", dist);
-
-    //Part 02
-    dist = 0;
-
-    for i in 0..col1.len() {
-        dist += match list2.get(&col1[i]) {
-            Some(num) => col1[i] * num,
-            None => 0,
-        }
-    }
-
-    println!("Dist: {}", dist);
+    part1::solve(&col1, &col2);
+    part2::solve(&col1, &col2);
 }

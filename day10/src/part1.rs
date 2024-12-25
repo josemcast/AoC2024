@@ -79,15 +79,15 @@ pub fn solve(topo_map: &Vec<Vec<i32>>) {
     let mut visited_nines = HashSet::new();
 
     let trailheads = find_trailheads(topo_map);
-    let mut sum = 0;
+    let mut sum_score = 0;
     for trailhead in trailheads {
         search_peak(
             (trailhead.0, trailhead.1, 'U'),
             topo_map,
             &mut visited_nines,
         );
-        sum += visited_nines.len();
+        sum_score += visited_nines.len();
         visited_nines.clear();
     }
-    println!("Solution pt1 {sum}");
+    println!("Solution pt1 {sum_score}");
 }

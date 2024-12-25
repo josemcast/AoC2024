@@ -17,7 +17,7 @@ fn search_peak(hiker: (i32, i32, char), grid: &Vec<Vec<i32>>) -> i32 {
         return 1;
     }
 
-    let mut sum = 0;
+    let mut rating = 0;
     let mut next = state_machine(&hiker);
 
     let nrows = grid.len();
@@ -27,7 +27,7 @@ fn search_peak(hiker: (i32, i32, char), grid: &Vec<Vec<i32>>) -> i32 {
         && ((grid[next.0 as usize][next.1 as usize] - 1)
             == grid[hiker.0 as usize][hiker.1 as usize])
     {
-        sum += search_peak(next, grid);
+        rating += search_peak(next, grid);
     }
 
     next = state_machine(&(hiker.0, hiker.1, next.2));
@@ -36,7 +36,7 @@ fn search_peak(hiker: (i32, i32, char), grid: &Vec<Vec<i32>>) -> i32 {
         && ((grid[next.0 as usize][next.1 as usize] - 1)
             == grid[hiker.0 as usize][hiker.1 as usize])
     {
-        sum += search_peak(next, grid);
+        rating += search_peak(next, grid);
     }
 
     next = state_machine(&(hiker.0, hiker.1, next.2));
@@ -45,7 +45,7 @@ fn search_peak(hiker: (i32, i32, char), grid: &Vec<Vec<i32>>) -> i32 {
         && ((grid[next.0 as usize][next.1 as usize] - 1)
             == grid[hiker.0 as usize][hiker.1 as usize])
     {
-        sum += search_peak(next, grid);
+        rating += search_peak(next, grid);
     }
 
     next = state_machine(&(hiker.0, hiker.1, next.2));
@@ -54,10 +54,10 @@ fn search_peak(hiker: (i32, i32, char), grid: &Vec<Vec<i32>>) -> i32 {
         && ((grid[next.0 as usize][next.1 as usize] - 1)
             == grid[hiker.0 as usize][hiker.1 as usize])
     {
-        sum += search_peak(next, grid);
+        rating += search_peak(next, grid);
     }
 
-    sum
+    rating
 }
 
 fn find_trailheads(topo_map: &Vec<Vec<i32>>) -> Vec<(i32, i32)> {
@@ -74,9 +74,9 @@ fn find_trailheads(topo_map: &Vec<Vec<i32>>) -> Vec<(i32, i32)> {
 }
 pub fn solve(topo_map: &Vec<Vec<i32>>) {
     let trailheads = find_trailheads(topo_map);
-    let mut sum = 0;
+    let mut sum_ratings = 0;
     for trailhead in trailheads {
-        sum += search_peak((trailhead.0, trailhead.1, 'U'), topo_map);
+        sum_ratings += search_peak((trailhead.0, trailhead.1, 'U'), topo_map);
     }
-    println!("Solution pt2 {sum}");
+    println!("Solution pt2 {sum_ratings}");
 }
